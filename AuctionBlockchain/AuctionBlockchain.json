@@ -1,0 +1,148 @@
+{
+    "ApplicationName": "AuctionBlockchain",
+    "DisplayName": "Auction Blockchain!",
+    "Description": "A simple auction bitting sample",
+    "ApplicationRoles": [
+      {
+        "Name": "Seller",
+        "Description": "A person seller an item."
+      },
+      {
+        "Name": "Buyer",
+        "Description": "A person buying an item"
+      }
+    ],
+    "Workflows": [
+      {
+        "Name": "SellerBlockchain",
+        "DisplayName": "Seller item",
+        "Description": "A simple workflow to Sell item",
+        "Initiators": [ "Seller" ],
+        "StartState": "Sell",
+        "Properties": [
+          {
+            "Name": "State",
+            "DisplayName": "State",
+            "Description": "Holds the state of the contract.",
+            "Type": {
+              "Name": "state"
+            }
+          },
+          {
+            "Name": "Seller",
+            "DisplayName": "Seller",
+            "Description": "A person selling.",
+            "Type": {
+              "Name": "Seller"
+            }
+          },
+          {
+            "Name": "Buyer",
+            "DisplayName": "Buyer",
+            "Description": "A person buying.",
+            "Type": {
+              "Name": "Buyer"
+            }
+          },
+          {
+            "Name": "RequestMessage",
+            "DisplayName": "Request Message",
+            "Description": "A request message.",
+            "Type": {
+              "Name": "string"
+            }
+          },
+          {
+            "Name": "ResponseMessage",
+            "DisplayName": "Response Message",
+            "Description": "A response message.",
+            "Type": {
+              "Name": "string"
+            }
+          }
+        ],
+        "Constructor": {
+          "Parameters": [
+            {
+              "Name": "message",
+              "Description": "...",
+              "DisplayName": "Request Message",
+              "Type": {
+                "Name": "string"
+              }
+            }
+          ]
+        },
+        "Functions": [
+          {
+            "Name": "SendRequest",
+            "DisplayName": "Request",
+            "Description": "...",
+            "Parameters": [
+              {
+                "Name": "requestMessage",
+                "Description": "...",
+                "DisplayName": "Request Message",
+                "Type": {
+                  "Name": "string"
+                }
+              }
+            ]
+          },
+          {
+            "Name": "SendResponse",
+            "DisplayName": "Response",
+            "Description": "...",
+            "Parameters": [
+              {
+                "Name": "responseMessage",
+                "Description": "...",
+                "DisplayName": "Response Message",
+                "Type": {
+                  "Name": "string"
+                }
+              }
+            ]
+          }
+        ],
+        "States": [
+          {
+            "Name": "Request",
+            "DisplayName": "Request",
+            "Description": "...",
+            "PercentComplete": 50,
+            "Value": 0,
+            "Style": "Success",
+            "Transitions": [
+              {
+                "AllowedRoles": ["Responder"],
+                "AllowedInstanceRoles": [],
+                "Description": "...",
+                "Function": "SendResponse",
+                "NextStates": [ "Respond" ],
+                "DisplayName": "Send Response"
+              }
+            ]
+          },
+          {
+            "Name": "Respond",
+            "DisplayName": "Respond",
+            "Description": "...",
+            "PercentComplete": 90,
+            "Value": 1,
+            "Style": "Success",
+            "Transitions": [
+              {
+                "AllowedRoles": [],
+                "AllowedInstanceRoles": ["Requestor"],
+                "Description": "...",
+                "Function": "SendRequest",
+                "NextStates": [ "Request" ],
+                "DisplayName": "Send Request"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
