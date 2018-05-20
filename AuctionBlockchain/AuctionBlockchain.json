@@ -45,17 +45,17 @@
             }
           },
           {
-            "Name": "RequestMessage",
-            "DisplayName": "Request Message",
-            "Description": "A request message.",
+            "Name": "Price",
+            "DisplayName": "Price Message",
+            "Description": "A price message.",
             "Type": {
               "Name": "string"
             }
           },
           {
-            "Name": "ResponseMessage",
-            "DisplayName": "Response Message",
-            "Description": "A response message.",
+            "Name": "Bid",
+            "DisplayName": "Bid Message",
+            "Description": "A bid message.",
             "Type": {
               "Name": "string"
             }
@@ -64,9 +64,9 @@
         "Constructor": {
           "Parameters": [
             {
-              "Name": "message",
+              "Name": "price",
               "Description": "...",
-              "DisplayName": "Request Message",
+              "DisplayName": "Price Message",
               "Type": {
                 "Name": "string"
               }
@@ -75,14 +75,14 @@
         },
         "Functions": [
           {
-            "Name": "SendRequest",
-            "DisplayName": "Request",
+            "Name": "SendPrice",
+            "DisplayName": "Price",
             "Description": "...",
             "Parameters": [
               {
-                "Name": "requestMessage",
+                "Name": "priceMessage",
                 "Description": "...",
-                "DisplayName": "Request Message",
+                "DisplayName": "Price Message",
                 "Type": {
                   "Name": "string"
                 }
@@ -90,14 +90,14 @@
             ]
           },
           {
-            "Name": "SendResponse",
-            "DisplayName": "Response",
+            "Name": "SendBid",
+            "DisplayName": "Bid",
             "Description": "...",
             "Parameters": [
               {
-                "Name": "responseMessage",
+                "Name": "bidMessage",
                 "Description": "...",
-                "DisplayName": "Response Message",
+                "DisplayName": "Bid Message",
                 "Type": {
                   "Name": "string"
                 }
@@ -107,26 +107,26 @@
         ],
         "States": [
           {
-            "Name": "Request",
-            "DisplayName": "Request",
+            "Name": "Price",
+            "DisplayName": "Price",
             "Description": "...",
             "PercentComplete": 50,
             "Value": 0,
             "Style": "Success",
             "Transitions": [
               {
-                "AllowedRoles": ["Responder"],
+                "AllowedRoles": ["Buyer"],
                 "AllowedInstanceRoles": [],
                 "Description": "...",
-                "Function": "SendResponse",
-                "NextStates": [ "Respond" ],
-                "DisplayName": "Send Response"
+                "Function": "SendPrice",
+                "NextStates": [ "Bid" ],
+                "DisplayName": "Send Bid"
               }
             ]
           },
           {
-            "Name": "Respond",
-            "DisplayName": "Respond",
+            "Name": "Bid",
+            "DisplayName": "Bid",
             "Description": "...",
             "PercentComplete": 90,
             "Value": 1,
@@ -134,11 +134,11 @@
             "Transitions": [
               {
                 "AllowedRoles": [],
-                "AllowedInstanceRoles": ["Requestor"],
+                "AllowedInstanceRoles": ["Seller"],
                 "Description": "...",
-                "Function": "SendRequest",
-                "NextStates": [ "Request" ],
-                "DisplayName": "Send Request"
+                "Function": "SendBid",
+                "NextStates": [ "Bid" ],
+                "DisplayName": "Send Bid"
               }
             ]
           }

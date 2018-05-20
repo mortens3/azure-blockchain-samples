@@ -21,52 +21,52 @@ contract WorkbenchBase {
     }
 }
 
-contract HelloBlockchain is WorkbenchBase('HelloBlockchain', 'HelloBlockchain') {
+contract AuctionBlockchain is WorkbenchBase('AuctionBlockchain', 'AuctionBlockchain') {
     //Set of States
-    enum StateType { Request, Respond}
+    enum StateType { Price, Bid}
 
     //List of properties
     StateType public  State;
-    address public  Requestor;
-    address public  Responder;
+    address public  Seller;
+    address public  Buyer;
 
-    string public RequestMessage;
-    string public ResponseMessage;
+    string public Price;
+    string public Bid;
 
     // constructor function
-    function HelloBlockchain(string message) public
+    function AuctionBlockchain(string message) public
     {
-        Requestor = msg.sender;
-        RequestMessage = message;
-        State = StateType.Request;
+        Seller = msg.sender;
+        Price = message;
+        State = StateType.Price;
 
         // call ContractCreated() to create an instance of this workflow
         ContractCreated();
     }
 
     // call this function to send a request
-    function SendRequest(string requestMessage) public
+    function SendPrice(string priceMessage) public
     {
-        if (Requestor != msg.sender)
+        if (Seller != msg.sender)
         {
             revert();
         }
 
-        RequestMessage = requestMessage;
-        State = StateType.Request;
+        Price = priceMessage;
+        State = StateType.Price;
 
         // call ContractUpdated() to record this action
-        ContractUpdated('SendRequest');
+        ContractUpdated('SendPrice');
     }
 
     // call this function to send a response
-    function SendResponse(string responseMessage) public
+    function SendBid(string bidMessage) public
     {
-        Responder = msg.sender;
+        Buyer = msg.sender;
 
         // call ContractUpdated() to record this action
-        ResponseMessage = responseMessage;
-        State = StateType.Respond;
+        Bid = bidMessage;
+        State = StateType.Bid;
         ContractUpdated('SendResponse');
     }
 }
