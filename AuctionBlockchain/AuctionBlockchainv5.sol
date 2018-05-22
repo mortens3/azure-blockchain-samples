@@ -21,52 +21,66 @@ contract WorkbenchBase {
     }
 }
 
-contract AuctionBlockchain is WorkbenchBase('AuctionBlockchain', 'AuctionBlockchain') {
+contract AuctionBlockchainv5 is WorkbenchBase("AuctionBlockchainv5", "AuctionBlockchainv5") {
     //Set of States
-    enum StateType { Price, Bid}
+    enum StateType { Sell, Bid, Sold}
 
     //List of properties
     StateType public  State;
     address public  Seller;
     address public  Buyer;
 
-    string public Price;
-    string public Bid;
+    int public Price;
+    int public Bid;
 
     // constructor function
-    function AuctionBlockchain(string message) public
+    function AuctionBlockchainv5(int message) public
     {
         Seller = msg.sender;
         Price = message;
-        State = StateType.Price;
+        State = StateType.Sell;
 
         // call ContractCreated() to create an instance of this workflow
         ContractCreated();
     }
 
     // call this function to send a request
-    function SendPrice(string priceMessage) public
+    function SendPrice(int message) public
     {
         if (Seller != msg.sender)
         {
             revert();
         }
 
-        Price = priceMessage;
-        State = StateType.Price;
+        Price = message;
+        State = StateType.Sell;
 
         // call ContractUpdated() to record this action
-        ContractUpdated('SendPrice');
+        ContractUpdated("SendPrice");
     }
 
     // call this function to send a response
-    function SendBid(string bidMessage) public
+    function SendBid(int message) public
     {
         Buyer = msg.sender;
 
         // call ContractUpdated() to record this action
-        Bid = bidMessage;
+        Bid = message;
         State = StateType.Bid;
-        ContractUpdated('SendResponse');
+        if (Bid > Price)
+            SendSold(message);
+        else
+            ContractUpdated("SendBid");
+    }
+
+     // call this function to send a response
+    function SendSold(int message) public
+    {
+        Buyer = msg.sender;
+
+        // call ContractUpdated() to record this action
+        Bid = message;
+        State = StateType.Sold;
+        ContractUpdated("SendSold");
     }
 }

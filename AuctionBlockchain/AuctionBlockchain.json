@@ -1,6 +1,6 @@
 {
-    "ApplicationName": "AuctionBlockchain",
-    "DisplayName": "Auction Blockchain!",
+    "ApplicationName": "AuctionBlockchainv5",
+    "DisplayName": "Auction AuctionBlockchainv5!",
     "Description": "A simple auction bitting sample",
     "ApplicationRoles": [
       {
@@ -14,9 +14,9 @@
     ],
     "Workflows": [
       {
-        "Name": "SellerBlockchain",
-        "DisplayName": "Seller item",
-        "Description": "A simple workflow to Sell item",
+        "Name": "AuctionBlockchainv5",
+        "DisplayName": "Action AuctionBlockchainv5",
+        "Description": "A simple workflow to auction an item",
         "Initiators": [ "Seller" ],
         "StartState": "Sell",
         "Properties": [
@@ -46,29 +46,29 @@
           },
           {
             "Name": "Price",
-            "DisplayName": "Price Message",
-            "Description": "A price message.",
+            "DisplayName": "Price",
+            "Description": "Item price",
             "Type": {
-              "Name": "string"
+              "Name": "int"
             }
           },
           {
             "Name": "Bid",
-            "DisplayName": "Bid Message",
-            "Description": "A bid message.",
+            "DisplayName": "Bid",
+            "Description": "Item bid",
             "Type": {
-              "Name": "string"
+              "Name": "int"
             }
           }
         ],
         "Constructor": {
           "Parameters": [
             {
-              "Name": "price",
+              "Name": "message",
               "Description": "...",
-              "DisplayName": "Price Message",
+              "DisplayName": "Item price",
               "Type": {
-                "Name": "string"
+                "Name": "int"
               }
             }
           ]
@@ -76,49 +76,65 @@
         "Functions": [
           {
             "Name": "SendPrice",
-            "DisplayName": "Price",
+            "DisplayName": "Set Price",
             "Description": "...",
             "Parameters": [
               {
-                "Name": "priceMessage",
+                "Name": "message",
                 "Description": "...",
-                "DisplayName": "Price Message",
+                "DisplayName": "Item price",
                 "Type": {
-                  "Name": "string"
+                  "Name": "int"
                 }
               }
             ]
           },
           {
             "Name": "SendBid",
-            "DisplayName": "Bid",
+            "DisplayName": "Make Bid",
             "Description": "...",
             "Parameters": [
               {
-                "Name": "bidMessage",
+                "Name": "message",
                 "Description": "...",
-                "DisplayName": "Bid Message",
+                "DisplayName": "Item bid",
                 "Type": {
-                  "Name": "string"
+                  "Name": "int"
+                }
+              }
+            ]
+          },
+          {
+            "Name": "SendSold",
+            "DisplayName": "Item Sold",
+            "Description": "...",
+            "Parameters": [
+              {
+                "Name": "message",
+                "Description": "...",
+                "DisplayName": "Item sold",
+                "Type": {
+                  "Name": "int"
                 }
               }
             ]
           }
+          
         ],
         "States": [
           {
-            "Name": "Price",
-            "DisplayName": "Price",
+            "Name": "Sell",
+            "DisplayName": "Sell",
             "Description": "...",
-            "PercentComplete": 50,
+            "PercentComplete": 25,
             "Value": 0,
             "Style": "Success",
             "Transitions": [
               {
                 "AllowedRoles": ["Buyer"],
-                "AllowedInstanceRoles": [],
+                "AllowedInstanceRoles": ["Buyer"],
                 "Description": "...",
-                "Function": "SendPrice",
+                "Function": "SendBid",
                 "NextStates": [ "Bid" ],
                 "DisplayName": "Send Bid"
               }
@@ -128,17 +144,35 @@
             "Name": "Bid",
             "DisplayName": "Bid",
             "Description": "...",
-            "PercentComplete": 90,
+            "PercentComplete": 50,
+            "Value": 1,
+            "Style": "Success",
+            "Transitions": [
+              {
+                "AllowedRoles": ["Buyer"],
+                "AllowedInstanceRoles": ["Buyer"],
+                "Description": "...",
+                "Function": "SendBid",
+                "NextStates": [ "Bid", "Sold" ],
+                "DisplayName": "Send Bid"
+              }
+            ]
+          },
+          {
+            "Name": "Sold",
+            "DisplayName": "Sold",
+            "Description": "...",
+            "PercentComplete": 100,
             "Value": 1,
             "Style": "Success",
             "Transitions": [
               {
                 "AllowedRoles": [],
-                "AllowedInstanceRoles": ["Seller"],
+                "AllowedInstanceRoles": [],
                 "Description": "...",
                 "Function": "SendBid",
-                "NextStates": [ "Bid" ],
-                "DisplayName": "Send Bid"
+                "NextStates": [ "Sold" ],
+                "DisplayName": "..."
               }
             ]
           }
