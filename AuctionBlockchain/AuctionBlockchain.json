@@ -45,6 +45,14 @@
             }
           },
           {
+            "Name": "ItemToSell",
+            "DisplayName": "Item to sell",
+            "Description": "Item to sell",
+            "Type": {
+              "Name": "string"
+            }
+          },
+          {
             "Name": "Price",
             "DisplayName": "Price",
             "Description": "Item price",
@@ -63,6 +71,14 @@
         ],
         "Constructor": {
           "Parameters": [
+            {
+              "Name": "itemtosell",
+              "Description": "...",
+              "DisplayName": "Item to Sell",
+              "Type": {
+                "Name": "string"
+              }
+            },
             {
               "Name": "message",
               "Description": "...",

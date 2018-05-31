@@ -29,16 +29,17 @@ contract AuctionBlockchainv5 is WorkbenchBase("AuctionBlockchainv5", "AuctionBlo
     StateType public  State;
     address public  Seller;
     address public  Buyer;
-
+    string public ItemToSell;
     int public Price;
     int public Bid;
 
     // constructor function
-    function AuctionBlockchainv5(int message) public
+    function AuctionBlockchainv5(string itemtosell, int message) public
     {
         Seller = msg.sender;
         Price = message;
         State = StateType.Sell;
+        ItemToSell = itemtosell;
 
         // call ContractCreated() to create an instance of this workflow
         ContractCreated();
