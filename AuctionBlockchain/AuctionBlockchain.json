@@ -1,6 +1,6 @@
 {
-    "ApplicationName": "AuctionBlockchainv5",
-    "DisplayName": "Auction AuctionBlockchainv5!",
+    "ApplicationName": "AuctionBlockchainv6",
+    "DisplayName": "Auction AuctionBlockchainv6!",
     "Description": "A simple auction bitting sample",
     "ApplicationRoles": [
       {
@@ -14,8 +14,8 @@
     ],
     "Workflows": [
       {
-        "Name": "AuctionBlockchainv5",
-        "DisplayName": "Action AuctionBlockchainv5",
+        "Name": "AuctionBlockchainv6",
+        "DisplayName": "Action AuctionBlockchainv6",
         "Description": "A simple workflow to auction an item",
         "Initiators": [ "Seller" ],
         "StartState": "Sell",

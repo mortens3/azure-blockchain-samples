@@ -21,7 +21,7 @@ contract WorkbenchBase {
     }
 }
 
-contract AuctionBlockchainv5 is WorkbenchBase("AuctionBlockchainv5", "AuctionBlockchainv5") {
+contract AuctionBlockchainv6 is WorkbenchBase("AuctionBlockchainv6", "AuctionBlockchainv6") {
     //Set of States
     enum StateType { Sell, Bid, Sold}
 
@@ -34,7 +34,7 @@ contract AuctionBlockchainv5 is WorkbenchBase("AuctionBlockchainv5", "AuctionBlo
     int public Bid;
 
     // constructor function
-    function AuctionBlockchainv5(string itemtosell, int message) public
+    function AuctionBlockchainv6(string itemtosell, int message) public
     {
         Seller = msg.sender;
         Price = message;
